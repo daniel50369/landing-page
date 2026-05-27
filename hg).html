@@ -1,0 +1,410 @@
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  BarChart3,
+  BookOpen,
+  BrainCircuit,
+  CheckCircle2,
+  ChevronDown,
+  Clock3,
+  GraduationCap,
+  HeartHandshake,
+  Mail,
+  Menu,
+  MessageCircle,
+  Play,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+const features = [
+  {
+    icon: Target,
+    title: "Personalized Learning Paths",
+    text: "Lessons and practice adapt instantly to each learner’s strengths, gaps, and pace.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Instant AI Feedback",
+    text: "Students receive clear explanations, hints, and next-step exercises in real time.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Human Mentor Support",
+    text: "Teachers focus on motivation, confidence, ethics, and meaningful human connection.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Responsible by Design",
+    text: "Transparent data use, human oversight, and fairness safeguards are built into learning.",
+  },
+];
+
+const learningSteps = [
+  {
+    number: "01",
+    title: "Diagnose",
+    text: "AI identifies a student’s learning gaps and current mastery level.",
+  },
+  {
+    number: "02",
+    title: "Personalize",
+    text: "The platform generates the right explanation and exercise sequence.",
+  },
+  {
+    number: "03",
+    title: "Support",
+    text: "A human mentor builds confidence and helps the student stay engaged.",
+  },
+];
+
+const stats = [
+  { value: "24/7", label: "Personalized support" },
+  { value: "Real-Time", label: "Adaptive feedback" },
+  { value: "Human + AI", label: "Learning model" },
+];
+
+const testimonials = [
+  {
+    quote:
+      "The AI showed me exactly where I got stuck, and my mentor helped me believe I could solve it.",
+    name: "Maya R.",
+    role: "High-school learner",
+  },
+  {
+    quote:
+      "I spend less time preparing repetitive practice and more time supporting students personally.",
+    name: "Daniel K.",
+    role: "Mathematics mentor",
+  },
+];
+
+const faqs = [
+  {
+    q: "Does AI replace teachers?",
+    a: "No. LearnPath AI handles personalization and instant feedback, while educators provide emotional support, judgment, motivation, and oversight.",
+  },
+  {
+    q: "How is student privacy protected?",
+    a: "The platform is designed around transparent data use, consent, human review, and minimal collection of student information.",
+  },
+  {
+    q: "Who is this for?",
+    a: "Schools, tutoring programs, educators, and families seeking personalized learning with responsible human guidance.",
+  },
+];
+
+function DashboardPreview() {
+  return (
+    <div className="relative w-full max-w-xl">
+      <div className="absolute -inset-12 rounded-full bg-cyan-300/20 blur-3xl" />
+      <div className="absolute -right-10 top-8 h-48 w-48 rounded-full bg-violet-300/20 blur-3xl" />
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="relative overflow-hidden rounded-[32px] border border-white/70 bg-white/90 p-5 shadow-[0_30px_90px_rgba(15,23,42,0.14)] backdrop-blur-xl"
+      >
+        <div className="flex items-center justify-between pb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white">
+              <BrainCircuit className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-900">Student Learning Journey</p>
+              <p className="text-xs text-slate-500">Algebra • Personal pathway</p>
+            </div>
+          </div>
+          <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Live AI Support</span>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-[1.05fr_.95fr]">
+          <div className="rounded-3xl bg-slate-950 p-5 text-white">
+            <p className="mb-3 text-xs uppercase tracking-[0.2em] text-cyan-300">AI Tutor</p>
+            <p className="text-sm leading-6 text-slate-100">
+              “Let’s solve <span className="font-semibold text-cyan-300">2x + 5 = 19</span> together, step by step.”
+            </p>
+            <div className="mt-5 rounded-2xl bg-white/10 p-4">
+              <p className="text-xs text-slate-300">Next practice</p>
+              <p className="mt-1 text-sm font-semibold">Linear equations • Level 2</p>
+              <div className="mt-3 h-1.5 rounded-full bg-white/15">
+                <div className="h-1.5 w-3/4 rounded-full bg-gradient-to-r from-cyan-300 to-violet-400" />
+              </div>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
+              <p className="text-xs text-slate-500">Mastery Score</p>
+              <div className="mt-1 flex items-end justify-between">
+                <p className="text-3xl font-bold text-slate-900">78%</p>
+                <p className="text-xs font-semibold text-emerald-600">+12%</p>
+              </div>
+            </div>
+            <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
+              <p className="text-xs text-slate-500">Human Mentor Alert</p>
+              <p className="mt-2 text-sm font-medium text-slate-800">Student confidence dropped after two retries.</p>
+              <p className="mt-2 text-xs font-semibold text-violet-600">Encouragement recommended →</p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+export default function PersonalizedLearningLandingPage() {
+  const [navOpen, setNavOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState(0);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const links = useMemo(() => ["How it works", "Benefits", "Ethics", "Contact"], []);
+
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setNavOpen(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-900 selection:bg-cyan-100">
+      <header className="sticky top-0 z-40 border-b border-slate-200/60 bg-white/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 via-blue-600 to-violet-600 text-white shadow-lg shadow-blue-500/20">
+              <GraduationCap className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="text-xl font-bold tracking-tight">LearnPath<span className="text-blue-600">AI</span></p>
+              <p className="hidden text-xs text-slate-500 sm:block">Personalized Education Platform</p>
+            </div>
+          </div>
+          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
+            {links.map((link) => (
+              <button key={link} onClick={() => scrollTo(link.toLowerCase().replaceAll(" ", "-"))} className="transition hover:text-blue-600">
+                {link}
+              </button>
+            ))}
+          </nav>
+          <div className="hidden items-center gap-3 md:flex">
+            <Button variant="ghost" className="rounded-full px-5 text-slate-600">Log in</Button>
+            <Button onClick={() => scrollTo("contact")} className="rounded-full bg-blue-600 px-6 hover:bg-blue-700">
+              Request a Demo
+            </Button>
+          </div>
+          <button onClick={() => setNavOpen(!navOpen)} className="rounded-xl p-2 text-slate-700 md:hidden">
+            {navOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+        {navOpen && (
+          <div className="border-t border-slate-100 bg-white px-6 py-5 md:hidden">
+            <div className="flex flex-col gap-4">
+              {links.map((link) => (
+                <button key={link} onClick={() => scrollTo(link.toLowerCase().replaceAll(" ", "-"))} className="text-left font-medium text-slate-700">
+                  {link}
+                </button>
+              ))}
+              <Button onClick={() => scrollTo("contact")} className="mt-2 rounded-full bg-blue-600">Request a Demo</Button>
+            </div>
+          </div>
+        )}
+      </header>
+
+      <main>
+        <section className="relative overflow-hidden px-6 pb-20 pt-16 lg:px-8 lg:pb-24 lg:pt-20">
+          <div className="absolute left-1/2 top-0 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-gradient-to-r from-cyan-100/70 via-blue-100/50 to-violet-100/70 blur-3xl" />
+          <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1fr_.95fr]">
+            <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-medium text-blue-700 shadow-sm">
+                <Sparkles className="h-4 w-4" /> AI-Powered Personalized Learning
+              </div>
+              <h1 className="max-w-2xl text-5xl font-bold leading-[1.08] tracking-tight text-slate-950 sm:text-6xl">
+                Every Student Learns Differently.
+                <span className="block bg-gradient-to-r from-cyan-600 via-blue-600 to-violet-600 bg-clip-text text-transparent">Now Education Can Too.</span>
+              </h1>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-slate-600">
+                LearnPath AI combines adaptive intelligence with human mentorship to deliver personalized practice, instant feedback, and meaningful support for every learner.
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Button onClick={() => scrollTo("contact")} className="h-14 rounded-full bg-blue-600 px-8 text-base shadow-xl shadow-blue-500/20 hover:bg-blue-700">
+                  Request a Demo <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button onClick={() => scrollTo("how-it-works")} variant="outline" className="h-14 rounded-full border-slate-200 bg-white px-8 text-base">
+                  <Play className="mr-2 h-4 w-4 fill-blue-600 text-blue-600" /> See How It Works
+                </Button>
+              </div>
+              <div className="mt-12 flex flex-wrap gap-8">
+                {stats.map((s) => (
+                  <div key={s.value}>
+                    <p className="text-2xl font-bold text-slate-950">{s.value}</p>
+                    <p className="mt-1 text-sm text-slate-500">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+            <DashboardPreview />
+          </div>
+        </section>
+
+        <section id="benefits" className="border-y border-slate-100 bg-white px-6 py-20 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">Why it matters</p>
+              <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">Better learning is both intelligent and human.</h2>
+              <p className="mt-5 text-slate-600">AI handles personalization at scale. Educators provide purpose, trust, and human judgment.</p>
+            </div>
+            <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {features.map(({ icon: Icon, title, text }, index) => (
+                <motion.div key={title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
+                  <Card className="h-full rounded-3xl border-slate-100 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                    <CardContent className="p-6">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="mt-5 text-lg font-semibold">{title}</h3>
+                      <p className="mt-3 text-sm leading-6 text-slate-600">{text}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="how-it-works" className="px-6 py-20 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-teal-600">How it works</p>
+                <h2 className="mt-4 text-4xl font-bold tracking-tight">From learning gap to confident progress.</h2>
+                <p className="mt-5 leading-7 text-slate-600">
+                  A continuous learning loop connects adaptive AI with the human relationship every student needs.
+                </p>
+              </div>
+              <div className="space-y-4">
+                {learningSteps.map((step, index) => (
+                  <motion.div key={step.number} initial={{ opacity: 0, x: 18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="flex gap-5 rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-sm font-bold text-white">{step.number}</div>
+                    <div>
+                      <h3 className="text-lg font-semibold">{step.title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-slate-600">{step.text}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="ethics" className="bg-slate-950 px-6 py-20 text-white lg:px-8">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1.05fr] lg:items-center">
+            <div>
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-cyan-200">
+                <ShieldCheck className="h-4 w-4" /> Human-Centered AI
+              </div>
+              <h2 className="text-4xl font-bold tracking-tight">Personalized does not mean unprotected.</h2>
+              <p className="mt-5 max-w-xl leading-7 text-slate-300">
+                Responsible learning technology must protect privacy, reduce bias, preserve human agency, and keep teachers involved in meaningful decisions.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {["Privacy-first data use", "Bias monitoring", "Human oversight", "Transparent feedback"].map((item) => (
+                <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-5">
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-cyan-300" />
+                  <span className="text-sm font-medium text-slate-100">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white px-6 py-20 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-600">Learning voices</p>
+              <h2 className="mt-4 text-3xl font-bold tracking-tight">Designed around real human progress.</h2>
+            </div>
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
+              {testimonials.map((item) => (
+                <Card key={item.name} className="rounded-3xl border-slate-100 shadow-sm">
+                  <CardContent className="p-8">
+                    <p className="text-lg leading-8 text-slate-700">“{item.quote}”</p>
+                    <div className="mt-6 flex items-center gap-3">
+                      <div className="h-11 w-11 rounded-full bg-gradient-to-br from-blue-100 to-violet-100" />
+                      <div>
+                        <p className="font-semibold">{item.name}</p>
+                        <p className="text-sm text-slate-500">{item.role}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-6 py-20 lg:px-8">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight">Frequently asked questions</h2>
+            </div>
+            <div className="mt-10 space-y-3">
+              {faqs.map((faq, index) => (
+                <button key={faq.q} onClick={() => setOpenFaq(openFaq === index ? -1 : index)} className="w-full rounded-2xl border border-slate-100 bg-white px-6 py-5 text-left shadow-sm">
+                  <div className="flex items-center justify-between gap-6">
+                    <span className="font-semibold">{faq.q}</span>
+                    <ChevronDown className={`h-5 w-5 text-slate-400 transition ${openFaq === index ? "rotate-180" : ""}`} />
+                  </div>
+                  {openFaq === index && <p className="mt-4 pr-8 text-sm leading-6 text-slate-600">{faq.a}</p>}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="px-6 pb-20 pt-4 lg:px-8">
+          <div className="mx-auto max-w-7xl overflow-hidden rounded-[38px] bg-gradient-to-br from-blue-700 via-blue-600 to-violet-700 px-7 py-14 text-white shadow-2xl shadow-blue-500/20 sm:px-14">
+            <div className="grid items-center gap-10 lg:grid-cols-[1fr_.95fr]">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200">Bring personalized learning to life</p>
+                <h2 className="mt-4 text-4xl font-bold tracking-tight">Ready to design better learning outcomes?</h2>
+                <p className="mt-5 max-w-xl text-blue-100">See how AI personalization and human mentorship can work together in your school or learning program.</p>
+              </div>
+              <form onSubmit={(e) => { e.preventDefault(); if (email.trim()) setSubmitted(true); }} className="rounded-3xl bg-white/10 p-5 backdrop-blur">
+                {!submitted ? (
+                  <>
+                    <label className="text-sm font-medium text-white">Request an early demo</label>
+                    <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+                      <div className="relative flex-1">
+                        <Mail className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Your work email" required className="h-13 w-full rounded-full border-0 bg-white py-4 pl-11 pr-4 text-sm text-slate-900 outline-none" />
+                      </div>
+                      <Button type="submit" className="h-13 rounded-full bg-slate-950 px-7 hover:bg-slate-900">Get Started</Button>
+                    </div>
+                    <p className="mt-3 text-xs text-blue-100">No commitment. Responsible AI demonstration included.</p>
+                  </>
+                ) : (
+                  <div className="flex items-center gap-3 py-3">
+                    <CheckCircle2 className="h-6 w-6 text-cyan-200" />
+                    <p className="font-medium">Thank you — your demo request has been received.</p>
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-slate-200 bg-white px-6 py-8 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 text-sm text-slate-500 sm:flex-row">
+          <p>© 2026 LearnPath AI. Designed for responsible personalized education.</p>
+          <p className="font-medium text-slate-600">Created with ChatGPT Canvas — Vibe Coding</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
